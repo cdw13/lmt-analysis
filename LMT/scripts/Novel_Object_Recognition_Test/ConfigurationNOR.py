@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ConfigurationNOR.py.
+#
+# Inputs: varies; see module for specifics (often .sqlite or json)
+# Outputs: in-memory objects, event tables, or files depending on callers
+# Dependencies: numpy
+# Example: Example: import ConfigurationNOR or run as script if __main__ present.
 '''
 #Created on 23 September 2021
 

@@ -1,3 +1,11 @@
+<!-- HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11 -->
+<!-- Repository README / documentation. -->
+<!-- -->
+<!-- Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs) -->
+<!-- Outputs: in-memory objects, event tables, or files depending on callers -->
+<!-- Dependencies: sqlite3 -->
+<!-- Example: See examples in LMT/examples for usage. -->
+
 # lmt-analysis
 
 Live Mouse Tracker analysis

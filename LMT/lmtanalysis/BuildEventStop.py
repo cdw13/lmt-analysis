@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Event-builder module for Stop.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, matplotlib, sqlite3
+# Example: Example: import BuildEventStop or run as script if __main__ present.
 '''
 Created on 6 sept. 2017
 

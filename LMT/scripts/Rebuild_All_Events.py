@@ -1,3 +1,37 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Rebuild_All_Events.py — orchestration script to build all event tables.
+#
+# Summary: Provides `process(file)` and `processAll()` which execute a full
+# pipeline over Live Mouse Tracker `.sqlite` databases: index/db fixes,
+# (re)build event tables using many `BuildEvent*` modules, flush caches and
+# log processing steps. Typically run as a maintenance/analysis batch.
+#
+# Representative callers (import or invocation):
+# - LMT/scripts/Novel_Object_Recognition_Test/* (import `processAll`) — many NOR analysis scripts
+# - LMT/scripts/Rebuild_All_Exclusive_Contact_Events.py (invokes sequence including this)
+# - Notebooks that orchestrate full rebuilds (e.g., `Rebuild all events.ipynb`) and
+#   IDE run configurations (e.g., PyCharm/VSCode run entries)
+# - Can be executed directly: `python LMT/scripts/Rebuild_All_Events.py` (runs `processAll()`)
+#
+# Files / functions called by this module (key callees):
+# - `lmtanalysis.BuildDataBaseIndex.buildDataBaseIndex(connection)` to ensure DB indices
+# - Many `BuildEvent*.py` modules (imported as `eventClassList`) — the code calls:
+#     - `ev.reBuildEvent(connection, file, tmin, tmax, pool, animalType)` for each event class
+#     - `ev.flush(connection)` to remove previous event rows
+#   Representative modules: BuildEventMove, BuildEventGroup2/3/4, BuildEventDetection,
+#   BuildEventOralOralContact, BuildEventOralGenitalContact, BuildEventSideBySide, BuildEventStop,
+#   BuildEventNest3/4, BuildEventLongChase, BuildEventMoveSpeedCategories, etc.
+# - `lmtanalysis.Animal.AnimalPool.loadAnimals/loadDetection` to load animals and detections (optionally cached)
+# - `lmtanalysis.CheckWrongAnimal.check(connection, tmin, tmax)` to detect malformed animals
+# - `lmtanalysis.CorrectDetectionIntegrity` (commented) may be invoked to alter DB detections
+# - `lmtanalysis.EventTimeLineCache` helpers: `flushEventTimeLineCache`, `disableEventTimeLineCache`, `EventTimeLineCached`
+# - `lmtanalysis.TaskLogger.TaskLogger.addLog(...)` to write processing/log messages into the `LOG` table
+# - Stdlib/third-party utilities: `psutil.virtual_memory()`, `tkinter.filedialog.getFilesToProcess`, `matplotlib`, `numpy`
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs) selected via `getFilesToProcess()`
+# Outputs: updated `EVENT` tables in the sqlite DB, optional CSV/plots produced by event builders or downstream scripts
+# Dependencies: lmtanalysis.* modules (BuildEvent*), sqlite3, psutil, matplotlib, tkinter, numpy
+# Example: `python LMT/scripts/Rebuild_All_Events.py` or `from scripts.Rebuild_All_Events import processAll; processAll()`
 '''
 Created on 13 sept. 2017
 

@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ComputeActivityExperiment.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, pandas, matplotlib, sqlite3
+# Example: Example: import ComputeActivityExperiment or run as script if __main__ present.
 '''
 Created by Nicolas Torquet at 18/11/2024
 torquetn@igbmc.fr

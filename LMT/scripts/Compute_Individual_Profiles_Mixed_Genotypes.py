@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Compute_Individual_Profiles_Mixed_Genotypes.py.
+#
+# Inputs: varies; see module for specifics (often .sqlite or json)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, matplotlib
+# Example: Example: import Compute_Individual_Profiles_Mixed_Genotypes or run as script if __main__ present.
 '''
 Created on 6 sept. 2019
 

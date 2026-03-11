@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ExclusivePattern.py.
+#
+# Inputs: varies; see module for specifics (often .sqlite or json)
+# Outputs: in-memory objects, event tables, or files depending on callers
+# Dependencies: standard library or project modules
+# Example: Example: import ExclusivePattern or run as script if __main__ present.
 '''
 Created on 22 f�vr. 2022
 

@@ -1,3 +1,33 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Event-builder module for ExclusiveUndetected.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: events written to the `EVENT` table in the sqlite DB; console logs
+# Dependencies: numpy, matplotlib, sqlite3, lmtanalysis.* helper modules
+# Example: import BuildEventExclusiveUndetected or run as script if __main__ present.
+#
+# Callers (example files that import/use this module):
+# - LMT/scripts/Rebuild_All_Exclusive_Contact_Events.py
+# - (may also be invoked by higher-level rebuild scripts that orchestrate event builders)
+#
+# Callees / internal dependencies (functions/modules called from here):
+# - lmtanalysis.Chronometer.Chronometer
+# - lmtanalysis.Animal (AnimalPool, loadAnimals)
+# - lmtanalysis.Detection (detection timeline utilities)
+# - lmtanalysis.Measure (imported symbols)
+# - lmtanalysis.Event (Event, EventTimeLine)
+# - lmtanalysis.EventTimeLineCache.EventTimeLineCached (loads cached timelines)
+# - lmtanalysis.BehaviouralSequencesUtil.exclusiveEventList (utility for exclusive events)
+# - lmtanalysis.TaskLogger.TaskLogger (logging to DB)
+#
+# Notes:
+# - This header was updated by GitHub Copilot on 2026-02-11 to list callers and callees.
+# Summary:
+# - Provides functions to (re)build the "Undetected exclusive" event timeline for each animal
+#   in a recording. For each animal it loads the detection timeline (cached), computes frames
+#   where the animal is not detected, reconstructs `Event` objects from those frames, and
+#   saves the resulting timeline into the `EVENT` table (via `endRebuildEventTimeLine()`).
+# - Also exposes `flush()` to delete previously stored "Undetected exclusive" events from the DB.
 '''
 Created on 6 sept. 2017
 

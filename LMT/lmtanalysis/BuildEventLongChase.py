@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Event-builder module for LongChase.
+#
+# Inputs: varies; see module for specifics (often .sqlite or json)
+# Outputs: in-memory objects, event tables, or files depending on callers
+# Dependencies: standard library or project modules
+# Example: Example: import BuildEventLongChase or run as script if __main__ present.
 '''
 Created on 13 nov. 2024
 

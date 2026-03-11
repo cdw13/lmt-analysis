@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ExportResultsDyadicToCSV.py.
+#
+# Inputs: json configuration or profile files
+# Outputs: CSV reports or tables
+# Dependencies: pandas
+# Example: Example: import ExportResultsDyadicToCSV or run as script if __main__ present.
 '''
 Created by Nicolas Torquet at 1/02/2023
 torquetn@igbmc.fr

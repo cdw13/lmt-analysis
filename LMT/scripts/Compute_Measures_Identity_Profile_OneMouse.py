@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Computation helpers for measures (distance, speed, durations).
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: matplotlib, tkinter, sqlite3
+# Example: Example: import Compute_Measures_Identity_Profile_OneMouse or run as script if __main__ present.
 '''
 Created on 13 sept. 2017
 

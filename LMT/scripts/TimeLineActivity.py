@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: TimeLineActivity.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, pandas, matplotlib, sqlite3
+# Example: Example: import TimeLineActivity or run as script if __main__ present.
 '''
 Created by Nicolas Torquet at 12/05/2023
 torquetn@igbmc.fr

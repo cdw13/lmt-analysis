@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Mask.py.
+#
+# Inputs: varies; see module for specifics (often .sqlite or json)
+# Outputs: plots (matplotlib) and images
+# Dependencies: matplotlib
+# Example: Example: import Mask or run as script if __main__ present.
 '''
 Created on 12 sept. 2017
 

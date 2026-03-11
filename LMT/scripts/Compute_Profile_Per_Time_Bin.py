@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Compute_Profile_Per_Time_Bin.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, pandas, matplotlib, sqlite3
+# Example: Example: import Compute_Profile_Per_Time_Bin or run as script if __main__ present.
 '''
 Created on 6 sept. 2023
 

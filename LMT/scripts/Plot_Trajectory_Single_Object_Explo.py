@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Plot_Trajectory_Single_Object_Explo.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, matplotlib, tkinter, sqlite3
+# Example: Example: import Plot_Trajectory_Single_Object_Explo or run as script if __main__ present.
 '''
 Created on 21 nov. 2018
 

@@ -1,3 +1,25 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Inter animal interaction matrix.py — simple matrix of pairwise events.
+#
+# Summary: Builds and prints a matrix counting occurrences of a chosen event
+# between every ordered pair of animals in an experiment. Loads animals and
+# event timelines from the sqlite DB and prints counts to stdout.
+#
+# Called by (representative callers):
+# - Typically executed interactively or from examples/notebooks; referenced by
+#   analysis scripts that inspect pairwise interactions (ad-hoc use via import or
+#   direct execution). Not commonly imported by other modules in this repo.
+#
+# Calls / functions used within this file:
+# - `AnimalPool.loadAnimals(conn)` and `pool.animalDictionary` from `lmtanalysis.Animal`
+# - `EventTimeLine(connection, eventName, idA, idB)` and `getEventList()` from `lmtanalysis.Event`
+# - `getAllEvents(file=...)` from `lmtanalysis.Util` to list available event names
+# - Imports many `BuildEvent*` modules so they are available/registered for `getAllEvents` and related tooling
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs) selected via GUI dialog or passed to `process(files, eventName)`
+# Outputs: printed matrix (stdout); no DB modifications performed
+# Dependencies: lmtanalysis (Animal, Event, Util), sqlite3, matplotlib (imported but not essential), tkinter (for file dialog)
+# Example: Run interactively: `python LMT/scripts/Inter\ animal\ interaction\ matrix.py` and choose an event when prompted
 '''
 Created on 13 sept. 2017
 

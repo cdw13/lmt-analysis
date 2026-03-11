@@ -1,3 +1,26 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ComputeSuccessiveWaterStops.py — experimental analysis of successive water stops.
+#!
+# Summary: Computes successive visits to the water point per animal from `Water Stop` events.
+# It builds pairwise counts of follow-up water stops and writes tabular results and a heatmap.
+#
+# Typical usage / callers:
+# - This is an experimental script intended to be executed directly from the command line
+#   or launched from notebooks; not commonly imported by other modules. Callers include
+#   ad-hoc analyses and developer notebooks under `LMT/experimental` or `LMT/examples`.
+#
+# Functions / modules called (callees):
+# - `lmtanalysis.FileUtil.getFilesToProcess()` to select input `.sqlite` files
+# - `lmtanalysis.Util.getMinTMaxTAndFileNameInput()` to obtain time window and output file handle
+# - `lmtanalysis.Animal.AnimalPool`: `loadAnimals()` and `animalDictionary` to list animals
+# - `lmtanalysis.Event.EventTimeLine` to load `Water Stop` timelines and query events
+# - `lmtanalysis.EventTimeLineCache.EventTimeLineCached` (imported) for cached access
+# - pandas / seaborn to build dataframes and heatmaps; matplotlib for saving figures
+#
+# Inputs: Live Mouse Tracker `.sqlite` DB files selected via GUI or passed to `process` logic
+# Outputs: tab-separated results written to provided text file, a heatmap PDF per experiment
+# Dependencies: lmtanalysis (Animal, Event, FileUtil, Util), numpy, pandas, seaborn, matplotlib, tkinter
+# Example: Run interactively: `python LMT/experimental/ComputeSuccessiveWaterStops.py` then follow prompts
 '''
 Created on 2 dec. 2019
 

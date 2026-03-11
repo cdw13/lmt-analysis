@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Rebuild_info_mice.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: CSV reports or tables
+# Dependencies: pandas, sqlite3
+# Example: Example: import Rebuild_info_mice or run as script if __main__ present.
 '''
 Created by Nicolas Torquet at 07/02/2023
 torquetn@igbmc.fr

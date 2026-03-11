@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: BuildDataBaseIndex.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: in-memory objects, event tables, or files depending on callers
+# Dependencies: sqlite3
+# Example: Example: import BuildDataBaseIndex or run as script if __main__ present.
 '''
 Created on 6 sept. 2017
 

@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: PlotFigureProfilesAuto.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, pandas, matplotlib, tkinter, sqlite3
+# Example: Example: import PlotFigureProfilesAuto or run as script if __main__ present.
 '''
 Created on 13 sept. 2017
 
@@ -28,8 +35,8 @@ import statsmodels.formula.api as smf
 import pandas
 from scipy.stats import mannwhitneyu, kruskal, ttest_1samp
 from scripts.ComputeMeasuresIdentityProfileOneMouseAutomatic import *
-from USV.usvDescription.Compute_Number_USVs_Diff_Geno import *
-from USV.usvDescription import *
+# from USV.usvDescription.Compute_Number_USVs_Diff_Geno import *
+# from USV.usvDescription import *
 
 if __name__ == '__main__':
 

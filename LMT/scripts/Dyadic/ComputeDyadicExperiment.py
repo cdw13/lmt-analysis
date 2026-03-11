@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ComputeDyadicExperiment.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, pandas, matplotlib, sqlite3
+# Example: Example: import ComputeDyadicExperiment or run as script if __main__ present.
 '''
 Created by Nicolas Torquet at 12/02/2024
 torquetn@igbmc.fr

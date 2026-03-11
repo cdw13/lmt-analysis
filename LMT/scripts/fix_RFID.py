@@ -1,3 +1,30 @@
+# HEADER_ADDED_BY_GITHUB_COPilot_2026-02-11
+# Script: fix_RFID.py
+#
+# Summary:
+#   Interactive utility to detect and fix RFID / animal ID issues in Live Mouse Tracker
+#   sqlite databases. It provides two main workflows:
+#   - Identify animals with invalid (non-numeric) RFID values and offer to remove the
+#     animal record along with its detections and events.
+#   - Interactively reassign an animal id (move all detections and events from one id
+#     to another) to correct ID assignment errors.
+#
+# Inputs: .sqlite tracking DB files selected via dialog (lmtanalysis.FileUtil.getFilesToProcess)
+# Outputs: Modifications written to the selected sqlite files (DELETE/UPDATE statements),
+#          and console prompts/logging describing the performed changes.
+# Dependencies: sqlite3, lmtanalysis.FileUtil, lmtanalysis.Animal
+#
+# Callers:
+#   - Intended to be run as a standalone script by a user; not typically imported by other
+#     modules. Example usage: `PYTHONPATH=/path/to/LMT python3 LMT/scripts/fix_RFID.py`
+#
+# Callees / internal calls:
+#   - `getFilesToProcess()` from `lmtanalysis.FileUtil` (to select DB files)
+#   - `AnimalPool()` and `Animal.loadDetection()` from `lmtanalysis.Animal` (to inspect detections)
+#   - direct SQL `DELETE`/`UPDATE` statements executed against the sqlite DB via `sqlite3`
+#
+# Safety note: This script performs destructive changes (DELETE/UPDATE). Always backup
+# the database before running.
 '''
 Created on 25 Oct 2022
 

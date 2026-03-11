@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Example script demonstrating common analysis flows (uses FileUtil dialogs).
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: sqlite3
+# Example: Run as: python LMT/examples/004_draw_trajectory_filter_area.py
 '''
 Created on 18 dec. 2018
 

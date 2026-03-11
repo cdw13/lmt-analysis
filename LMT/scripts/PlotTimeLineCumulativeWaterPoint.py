@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: PlotTimeLineCumulativeWaterPoint.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, matplotlib, tkinter, sqlite3
+# Example: Example: import PlotTimeLineCumulativeWaterPoint or run as script if __main__ present.
 
 import sqlite3
 from lmtanalysis.Animal import *

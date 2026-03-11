@@ -1,3 +1,38 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: AnalysisPerTimeBin.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: in-memory objects, event tables, or files depending on callers
+# Dependencies: pandas, sqlite3, lmtanalysis utilities
+# Example: Example: import AnalysisPerTimeBin or run as script if __main__ present.
+#
+# Summary:
+# - Utilities and a small class to extract per-animal event statistics per time-bin
+#   from a Live Mouse Tracker sqlite file. Key functionality:
+#   - `getEventTimeLine(file, minFrame, maxFrame)`: load EventTimeLine objects
+#     for each animal and behavior (uses `EventTimeLine` and cached detection timelines).
+#   - `getNumberOfFramePerEventPerTimebin(eventList, timebin, minFrame, duration)`:
+#     aggregate event-frame counts into time bins and convert to seconds.
+#   - `EventsPerTimeBin` class: orchestrates metadata extraction, pool loading,
+#     and per-animal results organization for a specified period and time-bin.
+#
+# Callers (files that import or use this module) — repository cross-reference:
+# - No direct importers found in the repo xref (module appears intended to be
+#   used as a library or executed directly by analysis workflows).
+#
+# Callees / internal dependencies called from this file:
+# - lmtanalysis.Event.EventTimeLine (loads behavioral event timelines)
+# - lmtanalysis.Measure (constants `oneMinute`, `oneHour`)
+# - Animal_LMTtoolkit.AnimalPoolToolkit (pool & detection loading)
+# - FileUtil.behaviouralEventOneMouse, FileUtil.getFilesToProcess
+# - Util.getDatetimeFromFrame, Util.getNumberOfFrames, Util.getStartInDatetime
+# - ZoneArena utilities (zone coordinate helpers)
+# - Activity.ComputeActivityExperiment.changeStringKeysToIntKeys
+# - pandas (data handling)
+#
+# Notes:
+# - Header updated by GitHub Copilot on 2026-02-11 to add summary, callers, and
+#   callees information (comments-only change).
 '''
 Created by Nicolas Torquet at 28/01/2025
 torquetn@igbmc.fr
@@ -10,16 +45,16 @@ Code under GPL v3.0 licence
 
 import sqlite3
 from Activity.ComputeActivityExperiment import changeStringKeysToIntKeys
-from Animal_LMTtoolkit import AnimalPoolToolkit
-from FileUtil import behaviouralEventOneMouse, getFilesToProcess
+from Animal_LMTtoolkit import AnimalPoolToolkit # type: ignore
+from FileUtil import behaviouralEventOneMouse, getFilesToProcess # type: ignore
 from lmtanalysis.Event import EventTimeLine
 import json
 from lmtanalysis.Measure import oneMinute, oneHour
 from lmtanalysis.AnimalType import AnimalType
 from datetime import datetime, timedelta
-from Util import getDatetimeFromFrame, getNumberOfFrames, getStartInDatetime, getStartTestPhase
+from Util import getDatetimeFromFrame, getNumberOfFrames, getStartInDatetime, getStartTestPhase # type: ignore
 from ZoneArena import getZoneCoordinatesFromCornerCoordinatesOpenfieldArea, \
-    getSmallerZoneFromGivenWholeCageCoordinatesAndMargin
+    getSmallerZoneFromGivenWholeCageCoordinatesAndMargin 
 import pandas as pd
 
 

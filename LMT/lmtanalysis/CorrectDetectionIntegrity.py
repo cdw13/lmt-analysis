@@ -1,3 +1,33 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: CorrectDetectionIntegrity.py — repair detection identity integrity.
+#
+# Summary: Scans detection records in a `.sqlite` LMT DB between `tmin` and
+# `tmax`. If not all animals are detected at a frame, this module marks those
+# detections as anonymous (sets `ANIMALID` to NULL) to avoid false identities.
+# This operation permanently alters the `DETECTION` table and should be used
+# with caution (typically as part of maintenance/rebuild flows).
+#
+# Representative callers (who invoke / import this module):
+# - `LMT/scripts/Rebuild_All_Events.py` (commented optional step)
+# - `LMT/scripts/Rebuild_All_Exclusive_Contact_Events.py` (commented optional step)
+# - `LMT/scripts/ManualNightInput.py`, `LMT/scripts/tools/RecoverFrame.py`,
+#   `LMT/scripts/AlterColBase.py`, and `LMT/scripts/sensor/plotSensorData.py`
+# - Notebooks that run the full rebuild sequence (e.g. `Rebuild all events.ipynb`)
+#
+# Functions / modules called from here (callees):
+# - `lmtanalysis.Animal.AnimalPool`: `loadAnimals()`, `getAnimalDictionary()` to enumerate animals
+# - `lmtanalysis.Detection.Detection` (module imported for constructing detection objects elsewhere)
+# - `lmtanalysis.Measure` helpers (time constants)
+# - `lmtanalysis.Event.EventTimeLine`: used to build `validDetectionTimeLine` and `reBuildWithDictionary`/`endRebuildEventTimeLine`
+# - `lmtanalysis.Chronometer.Chronometer` for timing operations
+# - `lmtanalysis.TaskLogger.TaskLogger.addLog(...)` to record the change in the DB `LOG` table
+# - Standard `sqlite3` connection and SQL `UPDATE` statements (this module executes `UPDATE DETECTION SET ANIMALID=NULL WHERE FRAMENUMBER=...`)
+#
+# Inputs: SQLite `connection` over Live Mouse Tracker `.sqlite` DB; `tmin` and `tmax` frame range
+# Outputs: mutates `DETECTION` rows (sets `ANIMALID` to NULL when integrity fails); writes a `LOG` entry
+# Dependencies: lmtanalysis modules (Animal, Detection, Event, Chronometer, TaskLogger), sqlite3, standard library
+# Example: In a rebuild script (commented):
+#   `# CorrectDetectionIntegrity.correct(connection, tmin=0, tmax=maxT)`
 '''
 
 @author: Fab

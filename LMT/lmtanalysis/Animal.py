@@ -1,3 +1,35 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Animal.py — core domain model for animals and experiment pools.
+#
+# Summary: Defines `Animal` and `AnimalPool` classes which load detections,
+# compute trajectories/measures and provide plotting helpers used across
+# examples and analysis scripts.
+#
+# Called by (representative callers):
+# - LMT/examples/*.py (e.g. 001_draw_trajectory.py, 002_*, 003_*, 004_draw_trajectory_filter_area.py,
+#   005_time_spent_in_area.py, 006_plot_3D_trajectory.py, 007_distance_traveled.py,
+#   008_load_and_show_event_time_line.py, 009_*, 010_*, 011_number_and_duration_event.py, 012_ShowMask.py)
+# - LMT/scripts/* (e.g. Compute_Measures_Identity_Profile.py, ComputeMeasuresIdentityProfileOneMouseAutomatic.py,
+#   ExportResultsToCSV.py, Rebuild_All_Events.py, checkTimeLine.py, checkMove.py, fix_RFID.py,
+#   PlotTimeLineActivity.py, PlotSensorData.py, Compute_OnHouseTimelines.py)
+# - LMT/lmtanalysis/BuildEvent*.py modules (many event builders import Animal or AnimalPool; e.g.
+#   BuildEventMove.py, BuildEventGroup2.py, BuildEventGroup3.py, BuildEventGroup4.py,
+#   BuildEventFloorSniffing.py, BuildEventOralGenitalContact.py)
+#
+# Calls / dependencies (files and key functions used by this module):
+# - lmtanalysis.Detection: `Detection` class used when loading detection rows
+# - lmtanalysis.Chronometer: `Chronometer` for timing operations
+# - lmtanalysis.Measure: measurement helpers (time constants and utilities)
+# - lmtanalysis.Event: `EventTimeLine` types used for masking/filtering
+# - lmtanalysis.Point, lmtanalysis.Mask: geometry helpers and masks
+# - lmtanalysis.Util: assorted helpers used across plotting and IO
+# - lmtanalysis.ParametersMouse / ParametersRat, lmtanalysis.AnimalType: parameter/config classes
+# - matplotlib, numpy, pandas, lxml.etree, statistics: scientific and plotting libs
+#
+# Example usage:
+# - In scripts/examples: `from lmtanalysis.Animal import AnimalPool` then
+#   `animalPool.loadAnimals(conn); animalPool.loadDetection(...); animalPool.plotTrajectory()`
+#
 '''
 Created on 7 sept. 2017
 @author: Fab
@@ -1153,6 +1185,7 @@ class AnimalPool():
         each entry get a list of detection
         clear previous anonymous detection dictionary
         '''
+        # new dictionary with key = frame number and value = list of detection
         self.anonymousDetection = {}
 
         chrono = Chronometer("Load anonymous detection")

@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: NightInputFromHours.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: in-memory objects, event tables, or files depending on callers
+# Dependencies: sqlite3
+# Example: Example: import NightInputFromHours or run as script if __main__ present.
 '''
 Created by Nicolas Torquet at 31/08/2023
 torquetn@igbmc.fr

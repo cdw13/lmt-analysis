@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ComputeOpenfield.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: in-memory objects, event tables, or files depending on callers
+# Dependencies: sqlite3
+# Example: Example: import ComputeOpenfield or run as script if __main__ present.
 '''
 Created by Nicolas Torquet at 14/02/2024
 torquetn@igbmc.fr

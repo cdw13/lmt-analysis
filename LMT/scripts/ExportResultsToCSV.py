@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ExportResultsToCSV.py.
+#
+# Inputs: json configuration or profile files
+# Outputs: CSV reports or tables
+# Dependencies: pandas
+# Example: Example: import ExportResultsToCSV or run as script if __main__ present.
 '''
 Created on 11 juillet. 2022
 

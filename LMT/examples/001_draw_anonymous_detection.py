@@ -1,3 +1,78 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+def load_and_visualize_anonymous_detections():
+    """
+    Load and visualize anonymous detections from Live Mouse Tracker SQLite experiments.
+    This function demonstrates how to:
+    1. Select one or more .sqlite database files via file dialog
+    2. Load animal metadata from the database using AnimalPool
+    3. Extract anonymous detection points (mass-center positions) for a specified time window
+    4. Visualize the detections as a scatter plot
+    5. Display reconstructed trajectories for identified animals
+    The anonymous detections represent mass-center positions recorded when animals are
+    present but not necessarily identified to a specific individual, making them useful
+    for density visualizations or when identity tracking is unreliable.
+    Time window:
+        - Default: first 3869 minutes of recording
+        - Adjustable via `start` and `end` variables
+        - Time units are in frames; use constants like `oneMinute` from lmtanalysis.Measure
+    Visualization parameters:
+        - Scatter plot with low opacity (alpha=0.05) and small point size (s=1)
+        - X-axis range: [90, 420] pixels
+        - Y-axis range: [-370, -40] pixels (inverted Y due to image coordinate system)
+        - Adjust axis limits to match your specific arena coordinates
+    Returns:
+        None (displays matplotlib plots)
+    Note:
+        Variable `t` is of type `int` representing frame number/timestamp in the database.
+    """
+# Example: 001_draw_anonymous_detection.py
+#
+# Detailed summary:
+#   This example demonstrates how to load and visualize anonymous detections from
+#   Live Mouse Tracker `.sqlite` experiments. "Anonymous detections" are the
+#   mass-center detections recorded for each frame when animals are present but
+#   not necessarily identified to a specific animal (useful for pooled/anonymous
+#   density visualizations or when identity tracking is unreliable).
+#
+#   The script performs the following steps:
+#   1. Prompts the user to select one or more `.sqlite` files using
+#      `getFilesToProcess()` from `lmtanalysis.FileUtil`.
+#   2. For each selected file it opens an sqlite connection and creates an
+#      `AnimalPool` instance to load animal metadata (`loadAnimals()`).
+#   3. Calls `animalPool.loadAnonymousDetection(start, end)` to load anonymous
+#      detection points for the specified time window. By default the example
+#      uses `start = 0` and `end = 10 * oneMinute` (first 10 minutes); adjust
+#      `start`/`end` in the script to change the time window.
+#   4. Aggregates the mass-center points into `xList`/`yList` and draws a
+#      low-opacity scatter plot to visualize where animals were detected.
+#   5. Calls `animalPool.plotTrajectory()` to show reconstructed trajectories
+#      (if named/identified trajectories are available).
+#
+#   Intended use / notes:
+#   - This is a non-destructive example that only reads from the database.
+#   - Use the `start`/`end` variables and the `oneMinute` constant (from
+#     `lmtanalysis.Measure`) to control the analysis window.
+#   - The plotting parameters (`alpha`, `s`, axis limits) are chosen for a
+#     general cage layout — adjust `ax.set_xlim()` / `ax.set_ylim()` to your
+#     arena coordinates.
+#
+# Inputs: .sqlite tracking DB files selected via dialog
+# Outputs: Matplotlib scatter plot of anonymous detections and optional
+#          trajectory plots via `animalPool.plotTrajectory()`
+# Dependencies: sqlite3, matplotlib, lmtanalysis.FileUtil, lmtanalysis.Animal,
+#               lmtanalysis.Measure
+#
+# Callers:
+#   - Standalone example run by users; not intended for import by other modules.
+#
+# Callees (functions/classes used):
+#   - `getFilesToProcess()` from `lmtanalysis.FileUtil`
+#   - `AnimalPool`, `loadAnimals()`, `loadAnonymousDetection()`,
+#     `plotTrajectory()` from `lmtanalysis.Animal`
+#   - `oneMinute` (time constant) from `lmtanalysis.Measure`
+#
+# Example: Run from repository root with PYTHONPATH set:
+#   PYTHONPATH=/path/to/LMT python3 LMT/examples/001_draw_anonymous_detection.py
 '''
 Created on 18 dec. 2018
 
@@ -30,9 +105,9 @@ if __name__ == '__main__':
         animalPool.loadAnimals( connection )
         
         start = 0
-        end = 10*oneMinute
+        end = 3869*oneMinute
         
-        # load all detection (positions) of all animals for the first hour
+        # load all detection (positions) of all animals for the time period btwn start, end
         animalPool.loadAnonymousDetection( start = start, end = end )
         
         
@@ -56,7 +131,7 @@ if __name__ == '__main__':
             
         plt.show()
         # plot and show trajectory
-        #animalPool.plotTrajectory()
+        animalPool.plotTrajectory()
 
     
     

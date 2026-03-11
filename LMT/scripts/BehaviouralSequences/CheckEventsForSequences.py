@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: CheckEventsForSequences.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: matplotlib, sqlite3
+# Example: Example: import CheckEventsForSequences or run as script if __main__ present.
 '''
 Created on 16 Feb 2022
 

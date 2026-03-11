@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Plot_Figure_Activity_NOR_habituation_group_monitoring.py.
+#
+# Inputs: json configuration or profile files
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, matplotlib, tkinter
+# Example: Example: import Plot_Figure_Activity_NOR_habituation_group_monitoring or run as script if __main__ present.
 '''
 #Created on 26 January 2021
 

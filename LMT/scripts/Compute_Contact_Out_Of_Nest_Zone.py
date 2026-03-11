@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Compute_Contact_Out_Of_Nest_Zone.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: in-memory objects, event tables, or files depending on callers
+# Dependencies: numpy, tkinter, sqlite3
+# Example: Example: import Compute_Contact_Out_Of_Nest_Zone or run as script if __main__ present.
 '''
 Created on 19 juin 2019
 

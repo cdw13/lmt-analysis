@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Small helper to read/write the `LOG` table in experiment sqlite databases.
+#
+# Inputs: varies; see module for specifics (often .sqlite or json)
+# Outputs: log table updates in sqlite DB
+# Dependencies: standard library or project modules
+# Example: Example: import TaskLogger or run as script if __main__ present.
 '''
 
 @author: Fab

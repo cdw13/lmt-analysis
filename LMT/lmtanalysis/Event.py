@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: Event.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: numpy, matplotlib, sqlite3
+# Example: Example: import Event or run as script if __main__ present.
 '''
 Created on 6 sept. 2017
 
@@ -17,7 +24,7 @@ import numpy as np
 from lmtanalysis.Measure import *
 import sys
 import json
-from numpy import nan
+from numpy import nan as NaN
 
 class Event:
     '''
@@ -125,7 +132,32 @@ class Event:
 
 class EventTimeLine:
     '''
-    classdocs
+    EventTimeLine: manage a timeline of `Event` objects loaded from the
+    `EVENT` table in a Live Mouse Tracker sqlite database.
+
+    Purpose:
+    - Load events for a given event name and optional animal IDs (idA/idB/idC/idD).
+    - Provide timeline operations: add/get/merge/dilate/remove/shift events,
+      compute durations/statistics, plot timelines, save/delete timelines in DB.
+
+    Representative callers (examples):
+    - LMT/examples/008_load_and_show_event_time_line.py, 009_*, 010_*, 011_number_and_duration_event.py
+    - LMT/scripts/Rebuild_All_Events.py, checkMove.py, checkTimeLine.py, and many Compute/Plot scripts
+    - Many event builders under LMT/lmtanalysis/BuildEvent*.py (e.g. BuildEventMove.py, BuildEventGroup2.py)
+    - LMT/lmtanalysis/Animal.py, LMT/lmtanalysis/EventTimeLineCache.py,
+      LMT/lmtanalysis/CorrectDetectionIntegrity.py, LMT/experimental/ComputeSuccessiveWaterStops.py
+
+    Internal callees / dependencies used inside this file:
+    - lmtanalysis.Chronometer.Chronometer (timing/logging)
+    - lmtanalysis.Measure (imported with `from lmtanalysis.Measure import *`)
+    - `Event` class (defined above in this module)
+    - `deleteEventTimeLineInBase` (function defined later in this module)
+    - standard modules: `json`, `numpy` (`np`), `matplotlib.pyplot` (`plt`)
+    - Methods frequently invoked: `saveTimeLine()`, `reBuildWithDictionary()`, `getDictionary()`,
+      `getEventAt()`, `updateMetaData()`.
+
+    Notes:
+    - This is a comments-only docstring update added by GitHub Copilot on 2026-02-11.
     '''
     def __init__(self, conn, eventName, idA=None , idB=None ,idC=None , idD=None , loadEvent=True, minFrame = None, maxFrame=None, inverseEvent = False , loadEventIndependently = False ):
         '''

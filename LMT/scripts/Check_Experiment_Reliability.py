@@ -1,3 +1,32 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Script: Check_Experiment_Reliability.py
+#
+# Summary:
+#   Comprehensive quality assurance tool that analyzes experiment reliability by checking:
+#   - Total recording duration and frame counts (expected vs. actual)
+#   - Detection rate for each animal (missed detections and detection percentage)
+#   - RFID tag match/mismatch events across the experiment
+#   - Occurrence counts for all behavioral events in the database
+#   Generates a summary text report of tracking and detection quality metrics.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs) via file dialog
+# Outputs: Text file summary report with reliability metrics
+# Dependencies: sqlite3, lmtanalysis.Animal, lmtanalysis.Event, lmtanalysis.Measure, lmtanalysis.Util,
+#               lmtanalysis.FileUtil, matplotlib, tkinter
+#
+# Callers (files/scripts that import or call this):
+#   - None currently (designed as standalone script; not typically imported)
+#
+# Callees (functions/modules called within this file):
+#   - getFilesToProcess() from lmtanalysis.FileUtil (get .sqlite files via dialog)
+#   - getFileNameInput() from lmtanalysis.Util (get output text file path)
+#   - getNumberOfFrames() from lmtanalysis.Util (retrieve frame count from database)
+#   - AnimalPool() from lmtanalysis.Animal (load and manage animal detections)
+#   - EventTimeLine() from lmtanalysis.Event (load and analyze behavioral events)
+#   - Measure module from lmtanalysis.Measure (time constants: oneSecond, oneMinute, oneHour, oneDay)
+#
+# Example: Run as script from command line with PYTHONPATH set:
+#   PYTHONPATH=/path/to/LMT python3 Check_Experiment_Reliability.py
 '''
 Created on 26 avr. 2019
 
@@ -109,7 +138,6 @@ if __name__ == '__main__':
             
             nbOfDetections = pool.animalDictionary[animal].getNumberOfDetection(tmin = startFrame, tmax = endFrame)
             missedDetection = 1-nbOfDetections/nbFramesRecorded
-            
             print ( "Animal {}: {} missed detections over {} frames recorded ({} %)".format( pool.animalDictionary[animal].RFID, nbFramesRecorded-nbOfDetections, nbFramesRecorded, missedDetection*100 ) )
             text_file.write( "Animal {}: {} missed detections over {} frames recorded ({} %)\n".format( pool.animalDictionary[animal].RFID, nbFramesRecorded-nbOfDetections, nbFramesRecorded, missedDetection*100 ) )
             '''Note: The score can be low, if the animals are often huddled in the nest and not identified individually.'''

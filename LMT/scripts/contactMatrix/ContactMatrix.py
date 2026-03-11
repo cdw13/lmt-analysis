@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ContactMatrix.py.
+#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: pandas, matplotlib, tkinter, sqlite3
+# Example: Example: import ContactMatrix or run as script if __main__ present.
 '''
 Created on 8 janv. 2025
 

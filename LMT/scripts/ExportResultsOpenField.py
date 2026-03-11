@@ -1,3 +1,10 @@
+# HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
+# Module: ExportResultsOpenField.py.
+#
+# Inputs: json configuration or profile files
+# Outputs: CSV reports or tables
+# Dependencies: pandas
+# Example: Example: import ExportResultsOpenField or run as script if __main__ present.
 '''
 Created by Nicolas Torquet at 06/02/2023
 torquetn@igbmc.fr
