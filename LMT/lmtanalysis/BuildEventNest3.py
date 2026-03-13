@@ -30,6 +30,7 @@ from lmtanalysis.TaskLogger import TaskLogger
 def flush( connection ):
     ''' flush event in database '''
     deleteEventTimeLineInBase(connection, "Nest3_" )
+    deleteEventTimeLineInBase(connection, "Nest3_Anonymous" )
 
 
 def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None, animalType=None ):
@@ -71,12 +72,16 @@ def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None, animalTy
     for idAnimalA in animalIdList:
         # the id will be the one excluded from nest.
         nest3TimeLine[idAnimalA] = EventTimeLine( None, "Nest3_" , idA = idAnimalA , loadEvent=False )
+
+    nest3AnonymousTimeLine = EventTimeLine( None, "Nest3_Anonymous" , loadEvent=False )
     
     pool.loadAnonymousDetection()
     
     result = {}
     for idAnimalA in animalIdList:
         result[idAnimalA] = {}
+
+    resultAnonymous = {}
     
     for t in range( tmin, tmax+1 ):
                 
@@ -151,8 +156,10 @@ def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None, animalTy
             if allStoppedInBiggestGroup:
                 if ( len( listCC[1] ) == 1 ): # the 2nd group (and the smallest) has only one mouse
                     animal = list(listCC[1])[0]
-                    if isinstance( animal , Animal ):                
+                    if isinstance( animal , Animal ):
                         result[ animal.baseId ][ t ] = True
+                    else:
+                        resultAnonymous[t] = True
                  
             
     for idAnimalA in animalIdList:
@@ -164,6 +171,11 @@ def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None, animalTy
         # merge flashing events
         nest3TimeLine[idAnimalA].mergeCloseEvents( 3 )
         nest3TimeLine[idAnimalA].endRebuildEventTimeLine(connection)
+
+    nest3AnonymousTimeLine.reBuildWithDictionary( resultAnonymous )
+    nest3AnonymousTimeLine.removeEventsBelowLength( 2 )
+    nest3AnonymousTimeLine.mergeCloseEvents( 3 )
+    nest3AnonymousTimeLine.endRebuildEventTimeLine(connection)
         
     # log process
     
