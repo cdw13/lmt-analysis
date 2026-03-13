@@ -34,7 +34,8 @@ def flush( connection ):
 
 def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None, animalType=None ):
     '''
-    Nest 3
+    Nest (N-1): one excluded animal while all other detected animals form
+    a connected stopped group.
     ''' 
     print("[NEST 3] : Assume that there is no occlusion, does not work with anonymous animals")
     
@@ -44,36 +45,37 @@ def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None, animalTy
         pool = AnimalPool( )
         pool.loadAnimals( connection )
         pool.loadDetection( start = tmin, end = tmax , lightLoad=True )
-        
-    if ( len ( pool.getAnimalList() ) != 4 ):
-        print( "[NEST3 Cancelled] 4 animals are required to build nest3.")
+
+    animalList = pool.getAnimalList()
+    animalIdList = sorted( [ animal.baseId for animal in animalList ] )
+
+    if ( len( animalIdList ) < 2 ):
+        print( "[NEST3 Cancelled] At least 2 animals are required to build nest3.")
         return
     
     contact = {}
         
-    for idAnimalA in range( 1 , 5 ):
-        for idAnimalB in range( 1 , 5 ):
+    for idAnimalA in animalIdList:
+        for idAnimalB in animalIdList:
             if idAnimalA != idAnimalB:    
                 contact[idAnimalA, idAnimalB] = EventTimeLineCached( connection, file, "Contact", idAnimalA, idAnimalB, minFrame=tmin, maxFrame=tmax ).getDictionary()
 
     stopDictionary = {}
         
-    for idAnimalA in range( 1 , 5 ):
+    for idAnimalA in animalIdList:
         stopDictionary[idAnimalA] = EventTimeLineCached( 
             connection, file, "Stop", idA=idAnimalA, minFrame=tmin, maxFrame=tmax ).getDictionary()
     
     nest3TimeLine = {}
     
-    for idAnimalA in range( 1 , 5 ):
+    for idAnimalA in animalIdList:
         # the id will be the one excluded from nest.
         nest3TimeLine[idAnimalA] = EventTimeLine( None, "Nest3_" , idA = idAnimalA , loadEvent=False )
     
     pool.loadAnonymousDetection()
     
-    animalList = pool.getAnimalList() 
-    
     result = {}
-    for idAnimalA in range( 1 , 5 ):
+    for idAnimalA in animalIdList:
         result[idAnimalA] = {}
     
     for t in range( tmin, tmax+1 ):
@@ -153,7 +155,7 @@ def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None, animalTy
                         result[ animal.baseId ][ t ] = True
                  
             
-    for idAnimalA in range( 1 , 5 ):
+    for idAnimalA in animalIdList:
             
         # the id will be the one excluded from nest.
         nest3TimeLine[idAnimalA].reBuildWithDictionary( result[idAnimalA] )

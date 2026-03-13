@@ -39,11 +39,8 @@ def flush( connection ):
 
 def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None , animalType=None ):
     '''
-    Nest 3
-    Nest 4
-    Group 2
-    Group 3
-    Group 4
+    Nest N: all detected entities (identified + anonymous) form one
+    connected group and all identified animals are stopped.
     ''' 
     print("[NEST 4] : Assume that there is no occlusion")
     
@@ -53,6 +50,9 @@ def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None , animalT
         pool = AnimalPool( )
         pool.loadAnimals( connection )
         pool.loadDetection( start = tmin, end = tmax , lightLoad=True )
+
+    animalList = pool.getAnimalList()
+    animalIdList = sorted( [ animal.baseId for animal in animalList ] )
     
     # check if given max is more than available detection 
     '''
@@ -63,21 +63,21 @@ def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None , animalT
     
     #pool.loadDetection( start = tmin, end = tmax )
     
-    if ( len ( pool.getAnimalList() ) != 4 ):
-        print( "[NEST4 Cancelled] 4 animals are required to build nest 4.")
+    if ( len( animalIdList ) < 2 ):
+        print( "[NEST4 Cancelled] At least 2 animals are required to build nest 4.")
         return
     
     contact = {}
     
     
-    for animal in range( 1 , 5 ):
-        for idAnimalB in range( 1 , 5 ):
+    for animal in animalIdList:
+        for idAnimalB in animalIdList:
             if animal != idAnimalB:    
                 contact[animal,idAnimalB] = EventTimeLineCached( connection, file, "Contact", animal, idAnimalB, minFrame=tmin, maxFrame=tmax ).getDictionary() #fait une matrice de tous les contacts à deux possibles
     
     stopDictionary = {}
         
-    for animal in range( 1 , 5 ):
+    for animal in animalIdList:
         stopDictionary[animal] = EventTimeLineCached( connection, file, "Stop", animal, minFrame=tmin, maxFrame=tmax ).getDictionary()
     
     
@@ -110,8 +110,6 @@ def reBuildEvent( connection, file, tmin=None, tmax=None , pool = None , animalT
     group4TimeLine = EventTimeLine( None, "Group4" , loadEvent=False )
     '''
         
-    
-    animalList = pool.getAnimalList() 
     
     result = {}
     
