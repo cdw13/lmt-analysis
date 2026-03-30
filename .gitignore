@@ -144,3 +144,4 @@ detection_rows*.csv
 detection_framenumbers*.csv
 detection_first10.csv
 identified_time_in_zone-*.csv
+LMT/report_exports/*.html
