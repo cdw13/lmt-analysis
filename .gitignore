@@ -133,3 +133,14 @@ LMT/scripts/paire new.txt
 *.txt
 *.png
 *.jpg
+
+# Generated analysis CSV exports
+exports/*.csv
+detection_table-*.csv
+anonymous_detection_frames-*.csv
+anonymous_detection_sequences-*.csv
+anonymous_detection_switches_1_2-*.csv
+detection_rows*.csv
+detection_framenumbers*.csv
+detection_first10.csv
+identified_time_in_zone-*.csv

@@ -62,11 +62,11 @@ if __name__ == '__main__':
         # load infos about the animals
         animalPool.loadAnimals( connection )
         
-        # load all detection (positions) of all animals for the first hour
-        animalPool.loadDetection( start = 0, end = 60*oneMinute )
+        # load all detection (positions) of all animals for the first 22 hours
+        animalPool.loadDetection( start = 0, end = 22*oneHour )
         
         # filter detection by area (in cm from the top left of the cage)
-        animalPool.filterDetectionByArea( 0, 0, 50, 50 );
+        animalPool.filterDetectionByArea( 0, 0, 25, 25 );
         
         # loop over all animals in this database
         for animal in animalPool.getAnimalList():

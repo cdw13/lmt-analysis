@@ -32,8 +32,8 @@ if __name__ == '__main__':
         # load infos about the animals
         animalPool.loadAnimals( connection )
         
-        # load all detection (positions) of all animals for the first hour
-        animalPool.loadDetection( start = 0, end = oneHour , lightLoad = True )
+        # load all detection (positions) of all animals for the first 22h
+        animalPool.loadDetection( start = 1232450, end = 1282758, lightLoad = True )
         
         # plot and show trajectory
         animalPool.plotTrajectory()

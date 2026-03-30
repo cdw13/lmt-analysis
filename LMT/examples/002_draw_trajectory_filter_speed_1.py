@@ -32,8 +32,8 @@ if __name__ == '__main__':
         # load infos about the animals
         animalPool.loadAnimals( connection )
         
-        # load all detection (positions) of all animals for the first hour
-        animalPool.loadDetection( start = 0, end = oneHour )
+        # load all detection (positions) of all animals for the first 22 hours
+        animalPool.loadDetection( start = 0, end = 22*oneHour )
         
         # filter detection by animalSpeed (speed is in centimeters per second)
         animalPool.filterDetectionByInstantSpeed( 0, 20 )

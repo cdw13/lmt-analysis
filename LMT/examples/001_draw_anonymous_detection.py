@@ -1,30 +1,4 @@
 # HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
-def load_and_visualize_anonymous_detections():
-    """
-    Load and visualize anonymous detections from Live Mouse Tracker SQLite experiments.
-    This function demonstrates how to:
-    1. Select one or more .sqlite database files via file dialog
-    2. Load animal metadata from the database using AnimalPool
-    3. Extract anonymous detection points (mass-center positions) for a specified time window
-    4. Visualize the detections as a scatter plot
-    5. Display reconstructed trajectories for identified animals
-    The anonymous detections represent mass-center positions recorded when animals are
-    present but not necessarily identified to a specific individual, making them useful
-    for density visualizations or when identity tracking is unreliable.
-    Time window:
-        - Default: first 3869 minutes of recording
-        - Adjustable via `start` and `end` variables
-        - Time units are in frames; use constants like `oneMinute` from lmtanalysis.Measure
-    Visualization parameters:
-        - Scatter plot with low opacity (alpha=0.05) and small point size (s=1)
-        - X-axis range: [90, 420] pixels
-        - Y-axis range: [-370, -40] pixels (inverted Y due to image coordinate system)
-        - Adjust axis limits to match your specific arena coordinates
-    Returns:
-        None (displays matplotlib plots)
-    Note:
-        Variable `t` is of type `int` representing frame number/timestamp in the database.
-    """
 # Example: 001_draw_anonymous_detection.py
 #
 # Detailed summary:

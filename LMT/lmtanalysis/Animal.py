@@ -1556,6 +1556,7 @@ class AnimalPool():
         '''
         return the number of particle per frame
         '''
+        # what is a particle?
 
         query = "SELECT FRAMENUMBER, NUMPARTICLE FROM FRAME WHERE FRAMENUMBER>={} AND FRAMENUMBER<={}".format( start, end )
 
@@ -1585,8 +1586,17 @@ class AnimalPool():
             pd.DataFrame: detections as pandas table
         """
 
+        animalList = self.getAnimalList()
+
+        parameters = None
+        if hasattr(self, "parameters") and self.parameters is not None:
+            parameters = self.parameters
+        elif len(animalList) > 0:
+            parameters = animalList[0].parameters
+            self.parameters = parameters
+
         data = defaultdict(list)
-        for animal in self.getAnimalList():
+        for animal in animalList:
             for frame, detection in animal.detectionDictionary.items():
                 data["RFID"]         .append(f"{animal.name}_{animal.RFID}")
                 data["name"]         .append(f"{animal.name}")
@@ -1599,16 +1609,28 @@ class AnimalPool():
 
         df = pd.DataFrame(data)
 
+        if len(df) == 0:
+            if "sec" not in df.columns:
+                df["sec"] = pd.Series(dtype=float)
+            df["x_cm"] = pd.Series(dtype=float)
+            df["y_cm"] = pd.Series(dtype=float)
+            df["in_arena_center"] = pd.Series(dtype=bool)
+            df.insert(3, "time", pd.to_timedelta(df["sec"], unit="s"))
+            return df
 
-        df["x_cm"] = (df.x - self.parameters.cornerCoordinatesOpenFieldArea[0][0]) / (self.parameters.cornerCoordinatesOpenFieldArea[1][0] - self.parameters.cornerCoordinatesOpenFieldArea[0][0]) * self.parameters.ARENA_SIZE
-        df["y_cm"] = (df.y - self.parameters.cornerCoordinatesOpenFieldArea[1][1]) / (self.parameters.cornerCoordinatesOpenFieldArea[2][1] - self.parameters.cornerCoordinatesOpenFieldArea[1][1]) * self.parameters.ARENA_SIZE
+        if parameters == None:
+            raise AttributeError("No parameters available in AnimalPool. Load animals before calling getDetectionTable().")
 
-        df[f"in_arena_center"] = (df["x_cm"] > self.parameters.CENTER_MARGIN) & \
-                                 (df["y_cm"] > self.parameters.CENTER_MARGIN) & \
-                                 (df["x_cm"] < (self.parameters.ARENA_SIZE - self.parameters.CENTER_MARGIN)) & \
-                                 (df["y_cm"] < (self.parameters.ARENA_SIZE - self.parameters.CENTER_MARGIN))
 
-        df.insert(3, "time", pd.to_timedelta(df.sec, unit="s"))
+        df["x_cm"] = (df["x"] - parameters.cornerCoordinatesOpenFieldArea[0][0]) / (parameters.cornerCoordinatesOpenFieldArea[1][0] - parameters.cornerCoordinatesOpenFieldArea[0][0]) * parameters.ARENA_SIZE
+        df["y_cm"] = (df["y"] - parameters.cornerCoordinatesOpenFieldArea[1][1]) / (parameters.cornerCoordinatesOpenFieldArea[2][1] - parameters.cornerCoordinatesOpenFieldArea[1][1]) * parameters.ARENA_SIZE
+
+        df[f"in_arena_center"] = (df["x_cm"] > parameters.CENTER_MARGIN) & \
+                                 (df["y_cm"] > parameters.CENTER_MARGIN) & \
+                                 (df["x_cm"] < (parameters.ARENA_SIZE - parameters.CENTER_MARGIN)) & \
+                                 (df["y_cm"] < (parameters.ARENA_SIZE - parameters.CENTER_MARGIN))
+
+        df.insert(3, "time", pd.to_timedelta(df["sec"], unit="s"))
 
         return df.sort_values("time").reset_index(drop=True)
 
