@@ -9,14 +9,43 @@ from datetime import datetime
 from lmtanalysis.FileUtil import getCsvFileToProcess
 
 
+# Set to an integer (e.g. 10) to export only the N longest sequences.
+# Set to None to export all sequences.
+TOP_N_LONGEST = 10
+
+
+def get_first_existing_key(row, candidate_keys):
+    for key in candidate_keys:
+        if key in row:
+            return key
+    return None
+
+
 def load_frame_counts(csv_file):
     frame_counts = []
 
     with open(csv_file, newline='') as f:
         reader = csv.DictReader(f)
-        for row in reader:
-            frame = int(row['frame'])
-            count = int(row['anonymous_detections'])
+
+        first_row = next(reader, None)
+        if first_row is None:
+            return frame_counts
+
+        frame_key = get_first_existing_key(first_row, ['frame', 'Frame'])
+        count_key = get_first_existing_key(first_row, ['anonymous_detections', 'Anonymous_Detections'])
+
+        if frame_key is None or count_key is None:
+            raise KeyError(
+                "Could not find expected columns. "
+                "Accepted frame columns: frame/Frame; "
+                "accepted count columns: anonymous_detections/Anonymous_Detections"
+            )
+
+        # Process first row then remaining rows.
+        rows = [first_row] + list(reader)
+        for row in rows:
+            frame = int(row[frame_key])
+            count = int(row[count_key])
             frame_counts.append((frame, count))
 
     frame_counts.sort(key=lambda x: x[0])
@@ -44,6 +73,22 @@ def get_consecutive_sequences(frame_counts):
 
     sequences.append((start, previous))
     return sequences
+
+
+def get_sequence_length(sequence):
+    start, end = sequence
+    return end - start + 1
+
+
+def get_top_n_longest_sequences(sequences, top_n=None):
+    ranked = sorted(
+        sequences,
+        key=lambda seq: (get_sequence_length(seq), seq[0]),
+        reverse=True
+    )
+    if top_n is None:
+        return ranked
+    return ranked[:top_n]
 
 
 def get_1_2_switch_pairs(frame_counts):
@@ -79,12 +124,14 @@ if __name__ == '__main__':
         raise SystemExit(0)
 
     sequences = get_consecutive_sequences(frame_counts)
+    longest_sequences = get_top_n_longest_sequences(sequences, TOP_N_LONGEST)
     switch_pairs = get_1_2_switch_pairs(frame_counts)
 
     base_name = os.path.splitext(os.path.basename(csv_file))[0]
     now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     output_filename = f'anonymous_detection_sequences-{base_name}-{now}.txt'
     sequences_csv_filename = f'anonymous_detection_sequences-{base_name}-{now}.csv'
+    longest_sequences_csv_filename = f'anonymous_detection_sequences_longest-{base_name}-{now}.csv'
     switches_csv_filename = f'anonymous_detection_switches_1_2-{base_name}-{now}.csv'
 
     with open(output_filename, 'w') as out:
@@ -92,15 +139,25 @@ if __name__ == '__main__':
         for sequence in sequences:
             out.write(f'{sequence}\n')
 
+        out.write('\nLongest sequences (sorted by length desc):\n')
+        for sequence in longest_sequences:
+            out.write(f'{sequence} length={get_sequence_length(sequence)}\n')
+
         out.write('\nSwitches between 1 and 2 detections (previous_frame, current_frame):\n')
         for pair in switch_pairs:
             out.write(f'{pair}\n')
 
     with open(sequences_csv_filename, 'w', newline='') as out_csv:
         writer = csv.writer(out_csv)
-        writer.writerow(['first_frame', 'last_frame'])
+        writer.writerow(['first_frame', 'last_frame', 'length'])
         for first_frame, last_frame in sequences:
-            writer.writerow([first_frame, last_frame])
+            writer.writerow([first_frame, last_frame, get_sequence_length((first_frame, last_frame))])
+
+    with open(longest_sequences_csv_filename, 'w', newline='') as out_csv:
+        writer = csv.writer(out_csv)
+        writer.writerow(['rank', 'first_frame', 'last_frame', 'length'])
+        for i, (first_frame, last_frame) in enumerate(longest_sequences, start=1):
+            writer.writerow([i, first_frame, last_frame, get_sequence_length((first_frame, last_frame))])
 
     with open(switches_csv_filename, 'w', newline='') as out_csv:
         writer = csv.writer(out_csv)
@@ -110,7 +167,12 @@ if __name__ == '__main__':
 
     print(f'Loaded {len(frame_counts)} rows from: {csv_file}')
     print(f'Found {len(sequences)} consecutive sequences.')
+    if TOP_N_LONGEST is None:
+        print(f'Exported all longest-sequence rankings ({len(longest_sequences)} rows).')
+    else:
+        print(f'Exported top {len(longest_sequences)} longest sequences (TOP_N_LONGEST={TOP_N_LONGEST}).')
     print(f'Found {len(switch_pairs)} switches between 1 and 2 detections.')
     print(f'Output saved to: {output_filename}')
     print(f'Sequences CSV saved to: {sequences_csv_filename}')
+    print(f'Longest sequences CSV saved to: {longest_sequences_csv_filename}')
     print(f'Switches CSV saved to: {switches_csv_filename}')
