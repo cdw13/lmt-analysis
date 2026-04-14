@@ -1,19 +1,10 @@
 # HEADER_ADDED_BY_GITHUB_COPILOT_2026-02-11
-# Script: AlterColBase.py
+# Module: AlterColBase.py.
 #
-# Summary:
-#   Standalone utility to add missing AGE, SEX, STRAIN, and SETUP columns to the
-#   ANIMAL table in selected Live Mouse Tracker sqlite databases.
-#
-# Inputs: .sqlite tracking DB files selected via dialog (lmtanalysis.FileUtil.getFilesToProcess)
-# Outputs: Modifications written to the selected sqlite files (ALTER TABLE statements),
-#          and console logging describing the performed changes.
-# Dependencies: sqlite3, lmtanalysis.FileUtil, lmtanalysis.Animal
-#
-# Callers:
-#   - Intended to be run as a standalone script by a user; not typically imported by other
-#     modules. Example usage: `PYTHONPATH=/path/to/LMT python3 LMT/scripts/AlterColBase.py`
-#
+# Inputs: .sqlite tracking DB files (Live Mouse Tracker outputs)
+# Outputs: plots (matplotlib) and images
+# Dependencies: matplotlib, tkinter, sqlite3
+# Example: Example: import AlterColBase or run as script if __main__ present.
 '''
 Created on 12 dec 2019
 
