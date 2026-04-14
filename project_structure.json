@@ -1,0 +1,83 @@
+{
+  "project": {
+    "name": "lmt-analysis",
+    "description": "Analysis toolkit for Live Mouse Tracker sqlite outputs",
+    "primary_inputs": [
+      "*.sqlite tracking databases",
+      "CSV exports for derived analyses"
+    ],
+    "primary_outputs": [
+      "event tables",
+      "plots/images",
+      "TXT/CSV report exports"
+    ]
+  },
+  "top_level_structure": {
+    "README.md": "Project overview and capabilities",
+    "LICENSE": "Repository license",
+    ".github/": "Repository automation and Copilot guidance",
+    "LMT/": "Main package, examples, scripts, notebooks, and assets",
+    "tools/": "Auxiliary tooling",
+    "exports/": "Generated export artifacts",
+    "python_packages_needed.txt": "Dependency list",
+    ".venv/": "Local virtual environment (workspace-specific)",
+    ".git/": "Git metadata"
+  },
+  "lmt_directory": {
+    "lmtanalysis/": {
+      "purpose": "Core analysis library modules",
+      "key_modules": {
+        "Animal.py": "Animal models and loading logic",
+        "Detection.py": "Detection object model",
+        "Event.py": "Event and timeline logic",
+        "Mask.py": "Mask decoding and geometry",
+        "FileUtil.py": "File selection/dialog helpers",
+        "TaskLogger.py": "LOG table read/write helpers",
+        "Util.py": "General utilities"
+      },
+      "event_builders": "Many BuildEvent*.py modules implement event detection pipelines"
+    },
+    "examples/": {
+      "purpose": "Runnable example scripts and notebooks",
+      "naming_pattern": "Numeric prefixes (001_...018_...) indicate demonstration workflows",
+      "notable_examples": [
+        "013_list_anonymous_detection_frames.py",
+        "014_get_detection_table.py",
+        "015_get_particle_table.py",
+        "016_find_anonymous_detection_sequences.py",
+        "018_time_spent_in_area_identified_and_inferred.py"
+      ]
+    },
+    "scripts/": {
+      "purpose": "Operational analysis, maintenance, and plotting scripts",
+      "notable_scripts": [
+        "fix_RFID.py",
+        "AlterColBase.py",
+        "Check_Experiment_Reliability.py",
+        "Check_Experiment_ReliabilityOverDayAndNight.py",
+        "Copy_Time_Period_To_New_SQLite.py",
+        "Rebuild_All_Events.py"
+      ]
+    },
+    "images/": "Project/reference images used in docs or visual workflows",
+    "experimental/": "Experimental analysis code",
+    "report_exports/": "Report export artifacts",
+    "split_sqlite.py": "Top-level helper for frame-range sqlite splitting"
+  },
+  "workspace_artifacts": {
+    "note": "Repository root currently contains many generated TXT/CSV outputs from local analysis runs.",
+    "examples": [
+      "anonymous_detection_frames-*.txt",
+      "anonymous_detection_sequences-*.csv",
+      "detection_table-*.csv",
+      "particle_table-*.txt",
+      "016-*.csv"
+    ]
+  },
+  "development_notes": {
+    "language": "Python",
+    "style": "Primarily script-oriented and procedural",
+    "database_backend": "SQLite",
+    "ui_interaction": "Some workflows use tkinter file dialogs"
+  }
+}
